@@ -1,4 +1,4 @@
-import { View, Button, Text, TextInput, StyleSheet, Image, KeyboardAvoidingView } from "react-native"
+import { View, Button, Text, TextInput, Image, KeyboardAvoidingView } from "react-native"
 import { useState } from "react"
 import styles from '../styles/LoginScreen.style'
 
@@ -10,6 +10,8 @@ export const LoginScreen = ({ navigation }) => {
 
     const handleSubmit = (data) => {
         console.log(data)
+        // Check if username and password are correct
+        navigation.navigate('Profile', { name: 'Jane' })
     }
 
     return (
@@ -26,17 +28,14 @@ export const LoginScreen = ({ navigation }) => {
                 value={password}
                 style={styles.input}
                 secureTextEntry={true}
-
             />
             <View style={styles.buttonContainer}>
                 <Button
                     title="Login"
-                    onPress={() => { handleSubmit({ username: username, password: password }) }
-                        //navigation.navigate('Profile', { name: 'Jane' })
-                    }
+                    onPress={() => { handleSubmit({ username: username, password: password }) }}
                     style={styles.submitButton}
                 />
-                <Text style={styles.text}>Create an account</Text>
+                <Text style={styles.text} onPress={() => {navigation.navigate('CreateProfile', { name: 'Jane' })}}>Create an account</Text>
                 <Image source={terrificTaxiLogo} style={styles.image} resizeMode="contain" />
             </View>
         </View>
