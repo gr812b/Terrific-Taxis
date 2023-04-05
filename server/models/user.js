@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
         type: Number,
         required: true,
     },
-    name: {
+    email: {
         type: String,
         required: true,
     },
@@ -14,6 +14,22 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     password: {
+        type: String,
+        required: true,
+    },
+    address: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    province: {
+        type: String,
+        required: true,
+    },
+    zip: {
         type: String,
         required: true,
     }
