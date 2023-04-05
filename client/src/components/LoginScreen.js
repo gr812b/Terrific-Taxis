@@ -4,14 +4,16 @@ import styles from '../styles/LoginScreen.style'
 
 const terrificTaxiLogo = require('../../assets/terrifictaxi.png');
 
-export const LoginScreen = ({ navigation }) => {
+export const LoginScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    const { setIsSignedIn } = route.params;
 
     const handleSubmit = (data) => {
         console.log(data)
         // Check if username and password are correct
-        navigation.navigate('Profile', { name: 'Jane' })
+        setIsSignedIn(true);
     }
 
     return (

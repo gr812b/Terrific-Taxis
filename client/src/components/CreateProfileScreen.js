@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { View, Button, Text, TextInput, Image, KeyboardAvoidingView } from "react-native"
 import styles from '../styles/DefaultStyles.style'
 
-export const CreateProfileScreen = ({ navigation }) => {
+export const CreateProfileScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
@@ -13,9 +12,14 @@ export const CreateProfileScreen = ({ navigation }) => {
     const [province, setProvince] = useState("");
     const [zip, setZip] = useState("");
 
+    const { setIsSignedIn } = route.params;
+
     const handleSubmit = (data) => {
         console.log(data)
         // Send request to backend to create profile with all data as is
+
+        //Then sign in
+        setIsSignedIn(true);
     }
 
     return (
