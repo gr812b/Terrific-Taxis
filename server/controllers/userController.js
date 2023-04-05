@@ -1,5 +1,6 @@
 import User from "../models/user.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 export const signUp = async (req, res) => {
     const { username, password, phone, email, address, city, state, zip } = req.body;
@@ -38,7 +39,12 @@ export const signIn = async (req, res) => {
         if (!passwordCorrect) {
             return res.status(400).json({ message: "Username/Password incorrect" });
         }
-        res.status(200).json(existingUser);
+        const token = jwt.sign(
+            { username: username, id: existingUser._id },
+            "test",
+            { expiresIn: "1h" }
+        );
+        res.status(200).json({ result: existingUser, token });
 
     } catch (error) {
         console.log(error);
