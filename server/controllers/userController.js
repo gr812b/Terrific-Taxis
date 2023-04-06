@@ -2,15 +2,17 @@ import User from "../models/user.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
+//this route is /users/signup. POST this route
+//expected req body { username, password, phone, email, address, city, state, zip }
 export const signUp = async (req, res) => {
     const { username, password, phone, email, address, city, state, zip } = req.body;
     try {
-        const existingUser = await User.findOne({ username })
+        const existingUser = await User.findOne({ username });
         if (existingUser) {
             return res.status(400).json("User Already exists");
         }
         //12 salt rounds around 3 hashes/sec
-        const hashedPassword = await bcrypt.hash(password, 12)
+        const hashedPassword = await bcrypt.hash(password, 12);
         const result = await User.create({
             username: username,
             password: hashedPassword,
@@ -21,15 +23,16 @@ export const signUp = async (req, res) => {
             city: city,
             zip: zip,
         })
-        res.status(201).json({ result: result, message: "User sucessfully created" })
+        res.status(201).json({ result: result, message: "User sucessfully created" });
     } catch (error) {
         console.log(error);
-        res.status(500).json("Something went wrong during user creation");
+        res.status(500).json({ message: error.message });
     }
 }
-
+//this route is /users/signin. POST this route
+//expected req body {username, password}
 export const signIn = async (req, res) => {
-    const { username, password } = req.body
+    const { username, password } = req.body;
     try {
         const existingUser = await User.findOne({ email });
         if (!existingUser) {
@@ -48,7 +51,20 @@ export const signIn = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: "Something went wrong" })
+        res.status(500).json({ message: error.message });
     }
+}
 
+//this route is /users. PATCH this route
+//expected req body { username, password, phone, email, address, city, state, zip }
+export const editProfile = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const formData = req.body;
+        const updatedProfile = await User.findByIdAndUpdate(userId, { ...formData, _id: userId }, { new: true });
+        res.status(201).json(updatedProfile);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message })
+    }
 }
