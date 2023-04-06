@@ -32,6 +32,11 @@ const userSchema = mongoose.Schema({
     zip: {
         type: String,
         required: true,
+    },
+    friends: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "User",
+        required: true,
     }
 })
 

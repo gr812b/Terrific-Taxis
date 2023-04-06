@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 //expected req body { username, password, phone, email, address, city, state, zip }
 export const signUp = async (req, res) => {
     const { username, password, phone, email, address, city, state, zip } = req.body;
+    console.log(req.body)
     try {
         const existingUser = await User.findOne({ username });
         if (existingUser) {
@@ -34,7 +35,7 @@ export const signUp = async (req, res) => {
 export const signIn = async (req, res) => {
     const { username, password } = req.body;
     try {
-        const existingUser = await User.findOne({ email });
+        const existingUser = await User.findOne({ username });
         if (!existingUser) {
             return res.status(404).json({ message: "User does not exist" });
         }
@@ -65,6 +66,29 @@ export const editProfile = async (req, res) => {
         res.status(201).json(updatedProfile);
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: error.message })
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const addFriend = async (req, res) => {
+    try {
+        const { friendId } = req.body;
+        const userId = req.userId;
+        const profile = await User.findById(userId);
+        const index = profile.friends.findIndex((id) => String(id) === String(friendId));
+        if (index === -1) {
+            console.log(String(friendId));
+            //friend thsis person
+            profile.friends.push(friendId)
+        } else {
+            //unfriend this person
+            console.log("123")
+            profile.friends = profile.friends.filter((id) => String(id) !== String(friendId))
+        }
+        const updatedProfile = await User.findByIdAndUpdate(userId, profile, { new: true })
+        res.status(200).json(updatedProfile);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
     }
 }
