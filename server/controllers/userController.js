@@ -69,7 +69,8 @@ export const editProfile = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-
+//this route is /users/addfriend. PATCH this route
+//expected req body {friendId}
 export const addFriend = async (req, res) => {
     try {
         const { friendId } = req.body;

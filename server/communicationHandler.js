@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import express from 'express';
 import userRoutes from './routes/user.js';
+import rideRoutes from './routes/ride.js';
 import bodyParser from 'body-parser';
 const app = express();
 const port = 5000;
@@ -12,6 +13,8 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use('/users', userRoutes);
+app.use('/rides', rideRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('This is a test of the terrific taxi server');
