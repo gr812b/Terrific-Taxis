@@ -12,6 +12,9 @@ import { LoginScreen } from "./src/components/LoginScreen.js"
 import { ProfileScreen } from "./src/components/ProfileScreen.js"
 import { CreateProfileScreen } from "./src/components/CreateProfileScreen.js"
 import { HomeScreen } from "./src/components/HomeScreen.js"
+import { RestaurantsScreen } from "./src/components/RestaurantsScreen.js"
+import { MenuScreen } from "./src/components/MenuScreen.js"
+import { ReceiptScreen } from "./src/components/ReceiptScreen.js"
 
 // Ignore this bc it doesn't matter
 LogBox.ignoreLogs([
@@ -35,6 +38,9 @@ function HomeHandler({ route }) {
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane' }} />
+      <Drawer.Screen name="Restaurants" component={RestaurantsScreen} />
+      <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }}/>
+      <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }}/>
     </Drawer.Navigator>
   );
 }
