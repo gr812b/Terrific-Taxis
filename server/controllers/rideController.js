@@ -21,7 +21,7 @@ export const createOffer = async (req, res) => {
     try {
         const userId = req.userId;
         const { taxiId, destination } = req.body;
-        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination });
+        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true });
         res.status(201).json(offer);
     } catch (error) {
         console.log(error);

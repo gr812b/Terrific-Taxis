@@ -11,6 +11,10 @@ const rideInformationSchema = mongoose.Schema({
         required: true,
         ref: "User",
     },
+    numRiders: {
+        type: Number,
+        required: true
+    },
     stops: {
         type: [String],
         required: true,
@@ -26,6 +30,10 @@ const rideInformationSchema = mongoose.Schema({
     carInformation: {
         type: mongoose.SchemaTypes.ObjectId,
         required: true,
+    },
+    isOffering: {
+        type: Boolean,
+        required: true
     }
 })
 
