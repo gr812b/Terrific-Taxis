@@ -1,5 +1,5 @@
 import { Text, View, ScrollView, Pressable } from "react-native"
-import CounterInput from "react-native-counter-input";
+//import CounterInput from "react-native-counter-input"
 
 import styles from '../styles/MenuScreen.style'
 

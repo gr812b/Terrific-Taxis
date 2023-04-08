@@ -15,6 +15,8 @@ import { HomeScreen } from "./src/components/HomeScreen.js"
 import { RestaurantsScreen } from "./src/components/RestaurantsScreen.js"
 import { MenuScreen } from "./src/components/MenuScreen.js"
 import { ReceiptScreen } from "./src/components/ReceiptScreen.js"
+import { ScanScreen } from './src/components/OfferRideScreen.js';
+import { SelectDestinationScreen } from './src/components/SelectDestination.js';
 
 // Ignore this bc it doesn't matter
 LogBox.ignoreLogs([
@@ -24,6 +26,7 @@ LogBox.ignoreLogs([
 function HomeHandler({ route }) {
 
   const Drawer = createDrawerNavigator();
+  const Stack = createNativeStackNavigator();
 
   const { setIsSignedIn } = route.params;
 
@@ -41,8 +44,23 @@ function HomeHandler({ route }) {
       <Drawer.Screen name="Restaurants" component={RestaurantsScreen} />
       <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }}/>
       <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }}/>
+      <Stack.Screen name="Offer Ride" component={OfferRideHandler}/>
     </Drawer.Navigator>
   );
+}
+
+function OfferRideHandler( route ) {
+  
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator>
+        <Stack.Screen name="Scan" component={ScanScreen} options={{title: "Please Scan QR Code:"}}/>
+        <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{title: "Please Select Destination:"}}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
 export default function App() {
