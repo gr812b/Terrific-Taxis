@@ -9,4 +9,17 @@
 3. Run `npx expo start`
 
 ## TODO - Kai
-- Complete logic for menu ordering (get selected and amount)
+
+### Front End
+- Maps Integration
+- Integrate ride UIs with backend
+- Camera functioning
+- Profile Page integration with backend
+- Restaurant Page integration with backend
+- Prettify UI
+
+### Back End
+- Dispatcher
+- Profile request
+- All restaurants request
+
