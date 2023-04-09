@@ -10,11 +10,17 @@ export const ScanScreen = ({ navigation }) => {
     return (
         <View>
             <Image source={cameraIcon} style={styles.image} resizeMode="contain" />
-            <Text>Taxi Details:</Text>
-            <Text>Details about the Taxi</Text>
-            <Pressable onPress={() => navigation.navigate('Destination')} style={styles.button}>
-                <Text>Next</Text>
-            </Pressable>
+
+            <View style={styles.container}>
+                <Text style={styles.heading}>Taxi Details:</Text>
+                <Text style={styles.body}>Details about the Taxi</Text>
+            </View>
+
+            <View style={{height: 500}}>
+                <Pressable onPress={() => navigation.navigate('Destination')} style={styles.button}>
+                    <Text>Next</Text>
+                </Pressable>
+            </View>
         </View>   
     )
 }

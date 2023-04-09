@@ -8,16 +8,23 @@ export default StyleSheet.create({
     },
     button: {
         position: 'absolute',
-        width: '20%',
-        height: '20%',
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: '#696969',
-        borderStyle: 'solid',
+        bottom: 20,
+        right: 20,
         backgroundColor: '#00BFFF',
-        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+    },
+    heading: {
+        fontWeight: 'bold',
+        textDecorationLine: 'underline',
+        fontSize: 30
+    },
+    body: {
+        marginTop: 20
+    },
+    container: {
         justifyContent: 'center',
-        bottom: 0,
-        right: 20
-    }
+        alignItems: 'center',
+      },
 })
