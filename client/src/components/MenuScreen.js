@@ -1,58 +1,62 @@
 import { Text, View, ScrollView, Pressable } from "react-native"
 import CounterInput from "react-native-counter-input"
+import React, { useState, useEffect } from "react"
 
 import styles from '../styles/MenuScreen.style'
 
 export const MenuScreen = ({ navigation, route }) => {
-    const { RestaurantId } = route.params;
-    // This information will be fetched based on restaurant ID passed in from RestaurantsScreen
-    fetch('http://10.0.2.2:5000/rides/restaurants').then((res) => console.log(res))
+
+    const { restaurantInfo } = route.params;
+
+    // Delete soon
     const menuItems = [
         {
             name: "Food",
-            price: "25$",
+            price: 25,
         },
         {
             name: "Drink",
-            price: "15$",
+            price: 15,
         },
         {
             name: "Dessert",
-            price: "10$",
+            price: 10,
         },
         {
             name: "Appetizer",
-            price: "5$",
+            price: 5,
         },
         {
             name: "Snack",
-            price: "2$",
+            price: 2,
         },
         {
             name: "Appetizer",
-            price: "5$",
+            price: 5,
         },
         {
             name: "Snack",
-            price: "2$",
+            price: 2,
         },
         {
             name: "Appetizer",
-            price: "5$",
+            price: 5,
         },
         {
             name: "Snack",
-            price: "2$",
+            price: 2,
         },
         {
             name: "Appetizer",
-            price: "5$",
+            price: 5,
         },
         {
             name: "Snack",
-            price: "2$",
+            price: 2,
         },
     ]
+
+    const [order, setOrder] = useState({});
 
     return (
         <View style={styles.container}>
@@ -66,6 +70,7 @@ export const MenuScreen = ({ navigation, route }) => {
                                 <CounterInput
                                     onChange={(counter) => {
                                         console.log(`onChange Counter ${menuItem.name}:`, counter);
+                                        setOrder({ ...order, [menuItem.name]: { quantity: counter, price: menuItem.price } });
                                     }}
                                     horizontal={true}
                                     style={styles.counterInput}
@@ -78,7 +83,9 @@ export const MenuScreen = ({ navigation, route }) => {
                     )}
                 </ScrollView>
             </View>
-            <Pressable style={styles.checkoutButton} onPress={() => { console.log("Order"); navigation.navigate('Receipt', { restaurantId: 'MickeyDDD1-1' }) }}>
+            <Pressable style={styles.checkoutButton} onPress={() => {
+                console.log("Order"); navigation.navigate('Receipt', { restaurantId: 'MickeyDDD1-1', order: order })
+            }}>
                 <Text style={styles.checkoutButtonText}>Checkout</Text>
             </Pressable>
         </View>
