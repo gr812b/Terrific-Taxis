@@ -32,7 +32,7 @@ export const RidesScreen = ({navigation}) => {
                 {rides.map((rides, index) => {
                     return (
                         <Pressable style={[styles.restaurantContainer, index % 2 === 0 ? styles.even : styles.odd]} key={index} 
-                        onPress={() => {console.log(rides.name)}}>
+                        onPress={() => {console.log(rides.name); navigation.navigate("Waiting", { userID: 'Micky' })}}>
                             <Text style={styles.restaurantName}>{rides.name}</Text>
                             <Text style={styles.restaurantRating}>{rides.rating}/5</Text>
                             <Text style={styles.restaurantPrice}>{rides.time}</Text>
