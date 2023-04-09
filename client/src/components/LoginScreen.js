@@ -1,4 +1,4 @@
-import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, NativeModules } from "react-native"
+import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, NativeModules, Alert } from "react-native"
 import { useState } from "react"
 import styles from '../styles/LoginScreen.style'
 
@@ -12,7 +12,7 @@ export const LoginScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const { setIsSignedIn } = route.params;
+    const { setToken } = route.params;
 
     const handleSubmit = (data) => {
         console.log(data)
@@ -23,14 +23,17 @@ export const LoginScreen = ({ navigation, route }) => {
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
+                //'authorization': 'Bearer ' + JSON.parse(data).token
             },
-            body: JSON.stringify({username: "Josh", password: "123"})
+            body: JSON.stringify({username: username, password: password})
         }).then(response => {
             response.text().then(data => {
                 console.log(JSON.parse(data).token)
                 if (JSON.parse(data).token) {
                     console.log("Login successful")
-                    setIsSignedIn(true);
+                    setToken(JSON.parse(data).token);
+                } else {
+                    Alert.alert("Error", "There was an error logging in. Please try again. Reason: " + JSON.parse(data).message)
                 }
             })
         }).catch(error => {

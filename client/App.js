@@ -35,19 +35,19 @@ function HomeHandler({ route }) {
   const Drawer = createDrawerNavigator();
   const Stack = createNativeStackNavigator();
 
-  const { setIsSignedIn } = route.params;
+  const { token, setToken } = route.params;
 
   return (
     <Drawer.Navigator initialRouteName="HomeHandler" drawerContent={props => {
       return (
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
-          <DrawerItem label="Logout" onPress={() => setIsSignedIn(false)} />
+          <DrawerItem label="Logout" onPress={() => setToken(null)} />
         </DrawerContentScrollView>
       )
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane' }} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane', token: token }} />
       <Stack.Screen name="Offer Ride" component={OfferRideHandler} />
       <Stack.Screen name="Request Ride" component={RequestRideHandler} />
     </Drawer.Navigator>
@@ -90,19 +90,19 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   // This should be a [state, dispatch] pair, but we're only using the state for now
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [token, setToken] = useState(null);
 
   return (
     <NavigationContainer>
       <Stack.Navigator >
-        {isSignedIn ? (
+        {token ? (
           <>
-            <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
+            <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ token, setToken }} />
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
-            <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setIsSignedIn: setIsSignedIn }}/>
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setToken }} />
+            <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setToken }} />
           </>
         )}
       </Stack.Navigator>

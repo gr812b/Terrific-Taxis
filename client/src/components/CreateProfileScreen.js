@@ -18,7 +18,7 @@ export const CreateProfileScreen = ({ navigation, route }) => {
     const [province, setProvince] = useState("");
     const [zip, setZip] = useState("");
 
-    const { setIsSignedIn } = route.params;
+    const { setToken } = route.params;
 
     const handleSubmit = async (data) => {
         console.log(data)
@@ -65,7 +65,7 @@ export const CreateProfileScreen = ({ navigation, route }) => {
                 console.log(JSON.parse(data).token)
                 if (JSON.parse(data).token) {
                     console.log("Login successful")
-                    setIsSignedIn(true);
+                    setToken(JSON.parse(data).token);
                 }
             })
         }).catch(error => {

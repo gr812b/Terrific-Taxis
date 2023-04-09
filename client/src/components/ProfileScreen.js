@@ -1,7 +1,11 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
+import { StyleSheet, Text, View, Image, TouchableOpacity, NativeModules } from "react-native"
 
 import styles from '../styles/ProfileScreen.style'
 
+
+const scriptURL = NativeModules.SourceCode.scriptURL;
+const address = scriptURL.split('://')[1].split('/')[0];
+const hostname = address.split(':')[0];
 
 export const ProfileScreen = ({ navigation, route }) => {
     // A profile should contain the following: Name, Email, Phone, Address, City, Province, Zip, Rating, Number of Rides, Profile Picture
@@ -11,13 +15,32 @@ export const ProfileScreen = ({ navigation, route }) => {
     // The profile should be able to be viewed by the user
 
 
-    const { id } = route.params;
+    const { token, id } = route.params;
+
+    console.log(token)
     // Use id to get profile data from backend
     // Use profile data to populate profile screen
 
     //function to get profile data from backend
     const getProfileData = (id) => {
         // Send request to backend to get profile data
+        fetch(`http://${hostname}:5000/users/addfriend`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ friendId: "6433456275de7af7bc55127f" })
+        }).then(response => {
+            console.log(response)
+            response.text().then(data => {
+                console.log(JSON.parse(data))
+                console.log(data)
+            })
+        }).catch(error => {
+            console.log("error: " + error)
+        });
         // Return profile data
         return {
             name: "Jane Dough",
