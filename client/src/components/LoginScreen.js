@@ -1,8 +1,12 @@
-import { View, Button, Text, TextInput, Image, KeyboardAvoidingView } from "react-native"
+import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, NativeModules } from "react-native"
 import { useState } from "react"
 import styles from '../styles/LoginScreen.style'
 
 const terrificTaxiLogo = require('../../assets/terrifictaxi.png');
+
+const scriptURL = NativeModules.SourceCode.scriptURL;
+const address = scriptURL.split('://')[1].split('/')[0];
+const hostname = address.split(':')[0];
 
 export const LoginScreen = ({ navigation, route }) => {
     const [username, setUsername] = useState("");
@@ -13,7 +17,28 @@ export const LoginScreen = ({ navigation, route }) => {
     const handleSubmit = (data) => {
         console.log(data)
         // Check if username and password are correct
-        setIsSignedIn(true);
+
+        fetch(`http://${hostname}:5000/users/signin`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+            },
+            body: JSON.stringify({username: "Josh", password: "123"})
+        }).then(response => {
+            response.text().then(data => {
+                console.log(JSON.parse(data).token)
+                if (JSON.parse(data).token) {
+                    console.log("Login successful")
+                    setIsSignedIn(true);
+                }
+            })
+        }).catch(error => {
+            console.log("error: " + error)
+        });
+
+        console.log("Login event occured")
+        
     }
 
     return (

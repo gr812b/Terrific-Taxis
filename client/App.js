@@ -100,7 +100,7 @@ export default function App() {
         ) : (
           <>
             <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
-            <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
+            <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setIsSignedIn: setIsSignedIn }}/>
           </>
         )}
       </Stack.Navigator>
