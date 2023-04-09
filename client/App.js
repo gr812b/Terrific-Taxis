@@ -15,8 +15,9 @@ import { HomeScreen } from "./src/components/HomeScreen.js"
 import { RestaurantsScreen } from "./src/components/RestaurantsScreen.js"
 import { MenuScreen } from "./src/components/MenuScreen.js"
 import { ReceiptScreen } from "./src/components/ReceiptScreen.js"
-import { ScanScreen } from './src/components/OfferRideScreen.js';
+import { ScanScreen } from './src/components/ScanScreen.js';
 import { SelectDestinationScreen } from './src/components/SelectDestination.js';
+import { FoodSelect } from './src/components/FoodSelect.js';
 
 // Ignore this bc it doesn't matter
 LogBox.ignoreLogs([
@@ -58,6 +59,8 @@ function OfferRideHandler( route ) {
       <Stack.Navigator>
         <Stack.Screen name="Scan" component={ScanScreen} options={{title: "Please Scan QR Code:"}}/>
         <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{title: "Please Select Destination:"}}/>
+        <Stack.Screen name="FoodSelect" component={FoodSelect} options={{title: "Would you like to order food?"}}/>
+        <Stack.Screen name="Restaurants" component={RestaurantsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
