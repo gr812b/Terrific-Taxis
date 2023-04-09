@@ -11,7 +11,7 @@ export const FoodSelect = ({navigation}) => {
         
             <View style={{ height: 50 }} />
 
-            <Pressable onPress={() => navigation.navigate('Menu', { restaurantId: 'MickeyDDD1-1' })} style={styles.button}>
+            <Pressable onPress={() => navigation.navigate('Riding')} style={styles.button}>
                 <Text style={styles.buttonText}>No</Text>
             </Pressable>
 
