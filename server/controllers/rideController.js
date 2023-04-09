@@ -34,8 +34,10 @@ export const createOffer = async (req, res) => {
 //expected req body {restaurantId }
 export const getRestaurantInfo = async (req, res) => {
     try {
-        const restaurantId = req.restaurantId;
+        console.log(req.body)
+        const restaurantId = req.body.restaurantId;
         const info = await Restaurant.findById(restaurantId).populate("menuItem");
+        console.log(info)
         res.status(200).json(info);
     } catch (error) {
         console.log(error);

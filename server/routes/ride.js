@@ -7,6 +7,6 @@ const router = express.Router();
 router.post('/createoffer', auth, createOffer);
 router.get('/:id', getTaxiInfo);
 router.patch('/rating/:id', auth, makeRating);
-router.get('/restaurant', getRestaurantInfo);
+router.post('/restaurant', getRestaurantInfo);
 
-export default router;  
+export default router; 
