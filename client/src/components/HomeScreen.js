@@ -20,8 +20,6 @@ export const HomeScreen = ({ navigation }) => {
             <Pressable onPress={() => navigation.navigate('Menu', { restaurantId: 'MickeyDDD1-1' })} style={styles.button}>
                 <Text style={styles.buttonText}>Request a ride</Text>
             </Pressable>
-            
-            
 
             <View style={{ height: 75 }} />
         </View>

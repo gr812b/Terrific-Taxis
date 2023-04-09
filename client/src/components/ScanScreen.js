@@ -1,5 +1,5 @@
 import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, Pressable } from "react-native"
-import styles from '../styles/OfferRideScreen.style'
+import styles from '../styles/ScanScreen.style'
 
 
 const cameraIcon = require('../../assets/camera.png');
