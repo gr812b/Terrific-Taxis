@@ -10,6 +10,7 @@ export const SelectDestinationScreen = ({navigation}) => {
 
     return(
         <View>
+            <Text>MAP GOES HERE!</Text>
             <TextInput
                 placeholder="Enter Destination"
                 onChangeText={setDestination}
