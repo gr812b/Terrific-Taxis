@@ -42,9 +42,6 @@ function HomeHandler({ route }) {
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane' }} />
-      <Drawer.Screen name="Restaurants" component={RestaurantsScreen} />
-      <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }}/>
-      <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }}/>
       <Stack.Screen name="Offer Ride" component={OfferRideHandler}/>
     </Drawer.Navigator>
   );
@@ -55,14 +52,14 @@ function OfferRideHandler( route ) {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen name="Scan" component={ScanScreen} options={{title: "Please Scan QR Code:"}}/>
         <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{title: "Please Select Destination:"}}/>
         <Stack.Screen name="FoodSelect" component={FoodSelect} options={{title: "Would you like to order food?"}}/>
         <Stack.Screen name="Restaurants" component={RestaurantsScreen}/>
+        <Stack.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }}/>
+        <Stack.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: [] }}/>
       </Stack.Navigator>
-    </NavigationContainer>
   )
 }
 

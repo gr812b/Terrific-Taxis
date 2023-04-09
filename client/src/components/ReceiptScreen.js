@@ -22,7 +22,7 @@ export const ReceiptScreen = ({ navigation, route }) => {
             price: 10,
             quantity: 1,
         },
-        
+
     ]
 
     return (
@@ -48,7 +48,7 @@ export const ReceiptScreen = ({ navigation, route }) => {
                 </Text>
             </View>
             <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
-                <Text style={styles.buttonText}>Back to Home</Text>
+                <Text style={styles.buttonText}>Continue</Text>
             </Pressable>
         </View>
     )

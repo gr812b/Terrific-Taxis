@@ -1,5 +1,5 @@
 import { Text, View, ScrollView, Pressable } from "react-native"
-//import CounterInput from "react-native-counter-input"
+import CounterInput from "react-native-counter-input"
 
 import styles from '../styles/MenuScreen.style'
 
@@ -77,7 +77,7 @@ export const MenuScreen = ({ navigation, route }) => {
                     )}
                 </ScrollView>
             </View>
-            <Pressable style={styles.checkoutButton} onPress={() => { console.log("Order") }}>
+            <Pressable style={styles.checkoutButton} onPress={() => { console.log("Order"); navigation.navigate('Receipt', { restaurantId: 'MickeyDDD1-1' }) }}>
                 <Text style={styles.checkoutButtonText}>Checkout</Text>
             </Pressable>
         </View>
