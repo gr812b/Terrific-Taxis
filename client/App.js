@@ -18,7 +18,9 @@ import { ReceiptScreen } from "./src/components/ReceiptScreen.js"
 import { ScanScreen } from './src/components/ScanScreen.js';
 import { SelectDestinationScreen } from './src/components/SelectDestination.js';
 import { FoodSelect } from './src/components/FoodSelect.js';
-
+import { io } from 'socket.io-client';
+const socket = io('http://10.0.2.2:5000');
+socket.on('connect', () => { console.log(`connected with id ${socket.id}`) })
 // Ignore this bc it doesn't matter
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -43,24 +45,24 @@ function HomeHandler({ route }) {
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane' }} />
       <Drawer.Screen name="Restaurants" component={RestaurantsScreen} />
-      <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }}/>
-      <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }}/>
-      <Stack.Screen name="Offer Ride" component={OfferRideHandler}/>
+      <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }} />
+      <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }} />
+      <Stack.Screen name="Offer Ride" component={OfferRideHandler} />
     </Drawer.Navigator>
   );
 }
 
-function OfferRideHandler( route ) {
-  
+function OfferRideHandler(route) {
+
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
-        <Stack.Screen name="Scan" component={ScanScreen} options={{title: "Please Scan QR Code:"}}/>
-        <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{title: "Please Select Destination:"}}/>
-        <Stack.Screen name="FoodSelect" component={FoodSelect} options={{title: "Would you like to order food?"}}/>
-        <Stack.Screen name="Restaurants" component={RestaurantsScreen}/>
+        <Stack.Screen name="Scan" component={ScanScreen} options={{ title: "Please Scan QR Code:" }} />
+        <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{ title: "Please Select Destination:" }} />
+        <Stack.Screen name="FoodSelect" component={FoodSelect} options={{ title: "Would you like to order food?" }} />
+        <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )
@@ -78,7 +80,7 @@ export default function App() {
       <Stack.Navigator >
         {isSignedIn ? (
           <>
-            <Stack.Screen name="HomeHandler" component={HomeHandler} options={{headerShown: false}} initialParams={{ setIsSignedIn: setIsSignedIn }}/>
+            <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
           </>
         ) : (
           <>

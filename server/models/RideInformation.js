@@ -34,8 +34,19 @@ const rideInformationSchema = mongoose.Schema({
     isOffering: {
         type: Boolean,
         required: true
+    },
+    location: {
+        type: {
+            type: String,
+            required: true,
+            default: "Point",
+        },
+        address: { type: String },
+        coordinates: [Number],
     }
 })
+
+rideInformationSchema.index({ "location": "2dsphere" })
 
 const RideInformation = mongoose.model('RideInformation', rideInformationSchema);
 
