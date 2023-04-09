@@ -9,4 +9,5 @@ router.get('/:id', getTaxiInfo);
 router.patch('/rating/:id', auth, makeRating);
 router.get('/restaurant', getRestaurantInfo);
 
+
 export default router;  

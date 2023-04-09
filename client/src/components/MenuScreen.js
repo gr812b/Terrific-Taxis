@@ -6,6 +6,7 @@ import styles from '../styles/MenuScreen.style'
 export const MenuScreen = ({ navigation, route }) => {
     const { RestaurantId } = route.params;
     // This information will be fetched based on restaurant ID passed in from RestaurantsScreen
+    fetch('http://10.0.2.2:5000/rides/restaurants').then((res) => console.log(res))
     const menuItems = [
         {
             name: "Food",

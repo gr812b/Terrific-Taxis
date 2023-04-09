@@ -13,3 +13,4 @@ export const findNearestRides = (location, distance) => {
         }
     }).exec().catch(error => console.log(error));
 }
+
