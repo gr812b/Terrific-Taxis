@@ -5,7 +5,7 @@ const restaurantSchema = mongoose.Schema({
         type: [Number],
         required: true,
     },
-    MenuItem: {
+    menuItem: {
         type: [mongoose.SchemaTypes.ObjectId],
         required: true,
     },

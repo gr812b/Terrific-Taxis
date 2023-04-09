@@ -37,6 +37,11 @@ const userSchema = mongoose.Schema({
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "User",
         required: true,
+    },
+    rating: {
+        type: [Number],
+        required: true,
+        default: [],
     }
 })
 
