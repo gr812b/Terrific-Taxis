@@ -1,7 +1,7 @@
 import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, FlatList } from "react-native"
 import { useState } from "react"
 import React from 'react'
-import styles from '../styles/LoginScreen.style'
+import styles from '../styles/RequestRide.style'
 
 export const RequestRide = ({navigation}) => {
 
