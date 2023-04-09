@@ -18,6 +18,10 @@ import { ReceiptScreen } from "./src/components/ReceiptScreen.js"
 import { ScanScreen } from './src/components/ScanScreen.js';
 import { SelectDestinationScreen } from './src/components/SelectDestination.js';
 import { FoodSelect } from './src/components/FoodSelect.js';
+import { RidingScreen } from './src/components/RidingScreen.js';
+import { RequestRide } from './src/components/RequestRide.js';
+import { RidesScreen } from './src/components/RidesScreen.js';
+import { ArrivedScreen } from './src/components/ArrivedScreen.js';
 import { io } from 'socket.io-client';
 const socket = io('http://10.0.2.2:5000');
 socket.on('connect', () => { console.log(`connected with id ${socket.id}`) })
@@ -44,10 +48,8 @@ function HomeHandler({ route }) {
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane' }} />
-      <Drawer.Screen name="Restaurants" component={RestaurantsScreen} />
-      <Drawer.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }} />
-      <Drawer.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: 'ordergo' }} />
       <Stack.Screen name="Offer Ride" component={OfferRideHandler} />
+      <Stack.Screen name="Request Ride" component={RequestRideHandler} />
     </Drawer.Navigator>
   );
 }
@@ -57,14 +59,29 @@ function OfferRideHandler(route) {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer independent={true}>
-      <Stack.Navigator>
-        <Stack.Screen name="Scan" component={ScanScreen} options={{ title: "Please Scan QR Code:" }} />
-        <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{ title: "Please Select Destination:" }} />
-        <Stack.Screen name="FoodSelect" component={FoodSelect} options={{ title: "Would you like to order food?" }} />
-        <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Scan" component={ScanScreen} options={{ title: "Please Scan QR Code:" }} />
+      <Stack.Screen name="Destination" component={SelectDestinationScreen} options={{ title: "Please Select Destination:" }} />
+      <Stack.Screen name="FoodSelect" component={FoodSelect} options={{ title: "Would you like to order food?" }} />
+      <Stack.Screen name="Restaurants" component={RestaurantsScreen} />
+      <Stack.Screen name="Menu" component={MenuScreen} initialParams={{ restaurantId: '20' }} />
+      <Stack.Screen name="Receipt" component={ReceiptScreen} initialParams={{ order: [] }} />
+      <Stack.Screen name="Riding" component={RidingScreen} options={{ title: "You're on your way!" }} />
+      <Stack.Screen name="Arrived" component={ArrivedScreen} options={{ title: "You have arrived!" }} />
+    </Stack.Navigator>
+  )
+}
+
+function RequestRideHandler(route) {
+
+  const Stack = createNativeStackNavigator();
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Request" component={RequestRide} options={{ title: "Please Enter Location and Destination:" }} />
+      <Stack.Screen name="Rides" component={RidesScreen} options={{ title: "Please Select a Ride:" }} />
+      <Stack.Screen name="Arrived" component={ArrivedScreen} options={{ title: "You have arrived!" }} />
+    </Stack.Navigator>
   )
 }
 
@@ -84,7 +101,7 @@ export default function App() {
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Welcome' }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setIsSignedIn: setIsSignedIn }} />
             <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
           </>
         )}
