@@ -29,7 +29,7 @@ export const ScanScreen = ({ navigation }) => {
         setScanned(true);
         setActive(false);
         //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-        fetch(`http://${hostname}:5000/rides/${data}`, {
+        fetch(`http://${hostname}:5000/rides/taxi/${data}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

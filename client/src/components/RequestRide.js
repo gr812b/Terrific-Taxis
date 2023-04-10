@@ -65,8 +65,12 @@ export const RequestRide = ({ navigation }) => {
                             <Text>Estimated Time: {time > 60 ? Math.ceil(time / 60) + " hours" : Math.ceil(time) + " mins"}</Text>
                             <Text>Estimated Price: ${Math.round(5 + distance * 0.6)}</Text>
                         </> : null}
-                    {flexibility && location && destination ?
-                        <TouchableOpacity style={stylesa.submitButton}><Text>Make Request!</Text></TouchableOpacity> : null
+                    {location && destination ?
+                        <TouchableOpacity style={stylesa.submitButton} onPress={() => {
+                            navigation.navigate("Rides", { userID: 'Micky', destination: destination, location: location, numppl: numppl, flexibility: flexibility })
+                        }}>
+                            <Text>Make Request!</Text>
+                        </TouchableOpacity> : null
                     }
                 </View>
 
