@@ -1,7 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+import MenuItem from "../models/MenuItem.js";
 //this route is /users/signup. POST this route
 //expected req body { username, password, phone, email, address, city, state, zip }
 export const signUp = async (req, res) => {
@@ -33,6 +33,7 @@ export const signUp = async (req, res) => {
 //this route is /users/signin. POST this route
 //expected req body {username, password}
 export const signIn = async (req, res) => {
+    await MenuItem.create({ name: "Tomato", price: "5", image: "tomato image" });
     const { username, password } = req.body;
     try {
         const existingUser = await User.findOne({ username });

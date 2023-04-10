@@ -4,13 +4,25 @@ import RideInformation from '../models/RideInformation';
 import CarInformation from '../models/carInformation';
 
 // this route is /dispatcher/request. GET this route
-// expected req body {destination, curLocation}
+// expected req body {destination, location, distance}
 export const requestRides = async (req, res) => {
     try {
         const requestingUser = User.findById(req.userId);
         const reqDestination = req.body.destination;
+        const location = req.body.location;
+        const distance = req.body.distance
 
-        const rides = await RideInformation.find({ destination: reqDestination, isOffering: true }).
+        const rides = await RideInformation.find({
+            destination: reqDestination, isOffering: true, location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: location
+                    },
+                    $maxDistance: distance
+                }
+            }
+        }).
             populate('carInformation', 'numberOfSeats').
             $where('this.numRiders < this.carInformation.numberOfSeats');
 
@@ -93,3 +105,19 @@ export const getAcceptance = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+
+export const findNearestRides = (location, distance) => {
+    return RideInformation.find({
+        location: {
+            $near: {
+                $geometry: {
+                    type: "Point",
+                    coordinates: location
+                },
+                $maxDistance: distance
+            }
+        }
+    }).exec().catch(error => console.log(error));
+}
+

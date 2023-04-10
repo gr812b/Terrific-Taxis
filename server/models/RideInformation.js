@@ -20,8 +20,13 @@ const rideInformationSchema = mongoose.Schema({
         required: true,
     },
     destination: {
-        type: String,
-        required: true,
+        type: {
+            type: String,
+            required: true,
+            default: "Point",
+        },
+        address: { type: String },
+        coordinates: [Number],
     },
     selectedRestaurant: {
         type: mongoose.SchemaTypes.ObjectId,

@@ -8,6 +8,7 @@ export const getTaxiInfo = async (req, res) => {
     try {
         const taxiId = req.params.id;
         const taxi = await CarInformation.findById(taxiId);
+        console.log(taxi)
         if (!taxi) {
             return res.status(404).send("Invalid code")
         }
@@ -22,8 +23,8 @@ export const getTaxiInfo = async (req, res) => {
 export const createOffer = async (req, res) => {
     try {
         const userId = req.userId;
-        const { taxiId, destination } = req.body;
-        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true });
+        const { taxiId, destination, location } = req.body;
+        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true, location: location });
         res.status(201).json(offer);
     } catch (error) {
         console.log(error);
