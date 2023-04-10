@@ -1,4 +1,4 @@
-import { StyleSheet, LogBox } from 'react-native';
+import { StyleSheet, LogBox, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, } from 'react-native';
 
 import * as React from 'react';
 import { useState } from "react"
@@ -93,20 +93,24 @@ export default function App() {
   const [token, setToken] = useState(null);
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator >
-        {token ? (
-          <>
-            <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ token, setToken }} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setToken }} />
-            <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setToken }} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <NavigationContainer>
+          <Stack.Navigator >
+            {token ? (
+              <>
+                <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ token, setToken }} />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setToken }} />
+                <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setToken }} />
+              </>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
