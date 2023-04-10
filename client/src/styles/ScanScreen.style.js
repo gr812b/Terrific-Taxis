@@ -26,5 +26,14 @@ export default StyleSheet.create({
     container: {
         justifyContent: 'center',
         alignItems: 'center',
-      },
+    },
+    cameraContainer: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    scanButton: {
+        marginTop: "3%",
+        marginBottom: "3%",
+    }
 })
