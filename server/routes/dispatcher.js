@@ -1,12 +1,12 @@
 import express from 'express'
 import auth from '../middleware/auth.js'
-import { acceptRequest, getAcceptance, getRequests, requestRides, selectRide } from '../controllers/dispatcherController';
+import { acceptRequest, getAcceptance, getMatches, getRequests, requestRides, selectRide } from '../controllers/dispatcherController';
 
 const router = express.Router();
 
-router.get('/request', auth, requestRides);
+router.post('/request', auth, requestRides);
 router.post('/select', auth, selectRide);
-router.get('/requests', auth, getRequests);
+router.get('/matches', auth, getMatches);
 router.post('/accept', auth, acceptRequest);
 router.get('/acceptance', auth, getAcceptance);
 

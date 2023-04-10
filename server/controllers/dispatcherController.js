@@ -3,7 +3,7 @@ import Request from '../models/Request';
 import RideInformation from '../models/RideInformation';
 import CarInformation from '../models/carInformation';
 
-// this route is /dispatcher/request. GET this route
+// this route is /dispatcher/request. POST this route
 // expected req body {destination, location, distance}
 export const requestRides = async (req, res) => {
     try {
@@ -24,7 +24,7 @@ export const requestRides = async (req, res) => {
             }
         }).
             populate('carInformation', 'numberOfSeats').
-            $where('this.numRiders < this.carInformation.numberOfSeats');
+            $where('this.numRiders < this.carInformation.numberOfSeats && this.isOffering');
 
         if (rides) {
             res.status(200).json(rides);
@@ -65,7 +65,7 @@ export const selectRide = async (req, res) => {
 }
 
 // this route is /dispatcher/requests. GET this route
-export const getRequests = async (req, res) => {
+export const getMatches = async (req, res) => {
     try {
         const requests = await Request.find({ offeringUser: req.userId }).
             populate('requestingUser');
