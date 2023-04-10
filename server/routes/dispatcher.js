@@ -4,7 +4,7 @@ import { acceptRequest, getAcceptance, getRequests, requestRides, selectRide } f
 
 const router = express.Router();
 
-router.get('/request', auth, requestRides);
+router.post('/request', auth, requestRides);
 router.post('/select', auth, selectRide);
 router.get('/requests', auth, getRequests);
 router.post('/accept', auth, acceptRequest);
