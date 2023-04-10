@@ -56,6 +56,18 @@ export const signIn = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+//this route is /users/getprofile. GET this route. This route returns the given userId's profile
+// append this query string to end ?userId=whatever user id
+export const getProfile = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+        const profile = await User.findById(userId);
+        res.status(200).json(profile);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message })
+    }
+}
 
 //this route is /users. PATCH this route
 //expected req body { username, password, phone, email, address, city, state, zip }

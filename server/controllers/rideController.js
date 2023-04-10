@@ -30,7 +30,7 @@ export const createOffer = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-//route is /rides/restaurant. GET this route
+//route is /rides/restaurants. GET this route THIS RETURNS ALL RESTAURANT INFO
 //expected req body {restaurantId }
 export const getRestaurantInfo = async (req, res) => {
     try {
@@ -42,6 +42,20 @@ export const getRestaurantInfo = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+//route is /rides/restaurant. GET THIS route. RETURNS A SINGLE RESTAURANT INFO with the given id
+//expected query string is ?restaurant=restaurantid
+export const getRestaurant = async (req, res) => {
+    try {
+        const restaurant = req.query.restaurant;
+        const info = await Restaurant.findById(restaurant).populate("menuItem");
+        res.status(200).json(info);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+
+}
+
 //route is /rides/rating/id of the other person. PATCH this route
 //expected req body {rating:}
 export const makeRating = async (req, res) => {
