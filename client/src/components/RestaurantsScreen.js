@@ -14,6 +14,8 @@ export const RestaurantsScreen = ({ navigation }) => {
         getRestaurantInfo();
     }, [])
 
+    console.log(hostname)
+
     const restaurants = [{}]
 
     // Fetch menu from a single restaurant
