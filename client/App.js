@@ -26,9 +26,7 @@ import { io } from 'socket.io-client';
 const socket = io('http://10.0.2.2:5000');
 socket.on('connect', () => { console.log(`connected with id ${socket.id}`) })
 // Ignore this bc it doesn't matter
-LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
-]);
+LogBox.ignoreAllLogs();
 
 function HomeHandler({ route }) {
 
@@ -86,6 +84,8 @@ function RequestRideHandler(route) {
 }
 
 export default function App() {
+
+  
 
   const Stack = createNativeStackNavigator();
 

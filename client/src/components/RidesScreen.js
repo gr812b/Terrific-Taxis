@@ -2,7 +2,10 @@ import { Text, View, ScrollView, Pressable } from "react-native"
 import styles from '../styles/RestaurantsScreen.style'
 
 
-export const RidesScreen = ({navigation}) => {
+export const RidesScreen = ({ navigation, route}) => {
+
+
+
     const rides = [
         {
             name: "Tom",

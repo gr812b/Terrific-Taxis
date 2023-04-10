@@ -8,54 +8,12 @@ export const MenuScreen = ({ navigation, route }) => {
 
     const { restaurantInfo } = route.params;
 
-    // Delete soon
-    const menuItems = [
-        {
-            name: "Food",
-            price: 25,
-        },
-        {
-            name: "Drink",
-            price: 15,
-        },
-        {
-            name: "Dessert",
-            price: 10,
-        },
-        {
-            name: "Appetizer",
-            price: 5,
-        },
-        {
-            name: "Snack",
-            price: 2,
-        },
-        {
-            name: "Appetizer",
-            price: 5,
-        },
-        {
-            name: "Snack",
-            price: 2,
-        },
-        {
-            name: "Appetizer",
-            price: 5,
-        },
-        {
-            name: "Snack",
-            price: 2,
-        },
-        {
-            name: "Appetizer",
-            price: 5,
-        },
-        {
-            name: "Snack",
-            price: 2,
-        },
-    ]
+    const [menuItems, setMenuItems] = useState([]);
 
+    useEffect(() => {
+        setMenuItems(restaurantInfo.menuItem);
+    }, [])
+    
     const [order, setOrder] = useState({});
 
     return (
