@@ -22,6 +22,8 @@ import { RidingScreen } from './src/components/RidingScreen.js';
 import { RequestRide } from './src/components/RequestRide.js';
 import { RidesScreen } from './src/components/RidesScreen.js';
 import { ArrivedScreen } from './src/components/ArrivedScreen.js';
+import { WaitingScreen } from './src/components/WaitingScreen.js';
+
 import { io } from 'socket.io-client';
 const socket = io('http://10.0.2.2:5000');
 socket.on('connect', () => { console.log(`connected with id ${socket.id}`) })
@@ -78,6 +80,7 @@ function RequestRideHandler(route) {
     <Stack.Navigator>
       <Stack.Screen name="Request" component={RequestRide} options={{ title: "Please Enter Location and Destination:" }} />
       <Stack.Screen name="Rides" component={RidesScreen} options={{ title: "Please Select a Ride:" }} />
+      <Stack.Screen name="Waiting" component={WaitingScreen} options={{ title: "Waiting for Driver..." }} />
       <Stack.Screen name="Arrived" component={ArrivedScreen} options={{ title: "You have arrived!" }} />
     </Stack.Navigator>
   )
