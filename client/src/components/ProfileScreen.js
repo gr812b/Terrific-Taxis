@@ -14,7 +14,7 @@ export const ProfileScreen = ({ navigation, route }) => {
     // The profile should be able to be viewed by other users
     // The profile should be able to be viewed by the user
 
-    const { token, id } = route.params;
+    const { token, setToken, id } = route.params;
 
     console.log(token)
     // Use id to get profile data from backend
@@ -77,11 +77,17 @@ export const ProfileScreen = ({ navigation, route }) => {
               eugenics and/or angry unicycle riders who are out for revenge..
               </Text>
     
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Add Friend</Text>
+              <TouchableOpacity style={styles.buttonContainer} onPress={() => {
+                navigation.navigate('EditProfile', { token: token, id: id })
+              }}>
+                <Text>Edit Profile</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.buttonContainer}>
-                <Text>Go fer a yeet</Text>
+              <TouchableOpacity style={styles.buttonContainer} onPress={() => {
+                //send request to delete profile and then navigate to login screen by setting token to null
+                console.log("delete profile")
+                setToken(null);
+              }}>
+                <Text>Delete Profile</Text>
               </TouchableOpacity>
             </View>
           </View>

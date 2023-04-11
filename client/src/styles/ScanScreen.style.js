@@ -18,7 +18,8 @@ export default StyleSheet.create({
     heading: {
         fontWeight: 'bold',
         textDecorationLine: 'underline',
-        fontSize: 30
+        fontSize: 30,
+        marginTop : 20,
     },
     body: {
         marginTop: 20
