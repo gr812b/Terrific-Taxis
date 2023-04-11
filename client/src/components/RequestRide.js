@@ -18,6 +18,8 @@ export const RequestRide = ({ navigation }) => {
     const [distance, setDistance] = useState(0);
     const [time, setTime] = useState(0);
     const [flexibility, setFlexibility] = useState(null);
+    const [destinationAddress, setDestinationAddress] = useState(0);
+    const [locationAddress, setLocationAddress] = useState(0);
 
     const setMapLocation = async (location) => {
         const position = await mapRef.current.getCamera();
@@ -56,8 +58,8 @@ export const RequestRide = ({ navigation }) => {
             </MapView>
             <View>
                 <View style={stylesa.searchContainer}>
-                    <GooglePlacesInputDestination setDestination={setDestination} setMapLocation={setMapLocation} />
-                    <GooglePlacesInputOrigin setLocation={setLocation} setMapLocation={setMapLocation} />
+                    <GooglePlacesInputDestination setDestination={setDestination} setMapLocation={setMapLocation} setDestinationAddress={setDestinationAddress} />
+                    <GooglePlacesInputOrigin setLocation={setLocation} setMapLocation={setMapLocation} setLocationAddress={setLocationAddress} />
                     <TextInput onChangeText={(e) => setFlexibility(e)} style={stylesa.input} placeholder="Within how many km of current location?" keyboardType="numeric" />
                     {distance && time ?
                         <>

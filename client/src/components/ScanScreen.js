@@ -73,7 +73,7 @@ export const ScanScreen = ({ navigation }) => {
                     </View>
                     {!active && <Button style={styles.scanButton} title={'Scan Another Taxi'} onPress={() => { setScanned(false); setActive(true); setTaxiInfo({}) }} />}
                     <View style={{ height: 500 }}>
-                        <Pressable onPress={() => navigation.navigate('Destination')} >
+                        <Pressable onPress={() => navigation.navigate('Destination', { taxiInfo: taxiInfo })} >
                             <Text>Next</Text>
                         </Pressable>
                     </View>

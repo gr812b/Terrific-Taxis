@@ -10,13 +10,17 @@ import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesInputDestination, GooglePlacesInputOrigin } from "./GoogleInput"
 
 
-export const SelectDestinationScreen = ({ navigation }) => {
+export const SelectDestinationScreen = ({ navigation, route }) => {
 
     const [destination, setDestination] = useState("");
     const [location, setLocation] = useState("");
     const mapRef = useRef(null);
     const [distance, setDistance] = useState(0);
     const [time, setTime] = useState(0);
+    const [destinationAddress, setDestinationAddress] = useState(0);
+    const [locationAddress, setLocationAddress] = useState(0);
+    const { taxiInfo } = route.params;
+    console.log(taxiInfo)
 
     const setMapLocation = async (location) => {
         const position = await mapRef.current.getCamera();
@@ -55,8 +59,8 @@ export const SelectDestinationScreen = ({ navigation }) => {
             </MapView>
             <View>
                 <View style={stylesa.searchContainer}>
-                    <GooglePlacesInputDestination setDestination={setDestination} setMapLocation={setMapLocation} />
-                    <GooglePlacesInputOrigin setLocation={setLocation} setMapLocation={setMapLocation} />
+                    <GooglePlacesInputDestination setDestination={setDestination} setMapLocation={setMapLocation} setDestinationAddress={setDestinationAddress} />
+                    <GooglePlacesInputOrigin setLocation={setLocation} setMapLocation={setMapLocation} setLocationAddress={setLocationAddress} />
                     {distance && time ?
                         <>
                             <Text>Estimated Distance: {distance.toFixed(1) + " km"}</Text>
@@ -65,36 +69,15 @@ export const SelectDestinationScreen = ({ navigation }) => {
                         </> : null}
                     {location && destination ?
                         <TouchableOpacity style={stylesa.submitButton} onPress={() => {
-                            navigation.navigate("Rides", { userID: 'Micky', destination: destination, location: location, numppl: numppl, flexibility: flexibility })
+                            navigation.navigate("FoodSelect", { userID: 'This is whatever', destination: destination, location: location, numppl: taxiInfo.numberOfSeats, taxiInfo: taxiInfo, locationAddress: locationAddress, destinationAddress: destinationAddress })
                         }}>
                             <Text>Make Offer!</Text>
                         </TouchableOpacity> : null
                     }
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            title="Order Food"
-                            onPress={() => { navigation.navigate('FoodSelect') }}
-                            style={styles.submitButton}
-                        />
-                    </View>
+
                 </View>
-
             </View>
         </View>
-    )
-
-    return (
-        <View>
-
-            <View style={styles.buttonContainer}>
-                <Button
-                    title="Order Food"
-                    onPress={() => { navigation.navigate('FoodSelect') }}
-                    style={styles.submitButton}
-                />
-            </View>
-        </View>
-
     )
 }
 const stylesa = StyleSheet.create({

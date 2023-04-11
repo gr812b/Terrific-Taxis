@@ -22,9 +22,20 @@ export const getTaxiInfo = async (req, res) => {
 //expected req body {taxiId, destination, location}
 export const createOffer = async (req, res) => {
     try {
+        console.log(req.body)
         const userId = req.userId;
-        const { taxiId, destination, location } = req.body;
-        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true, location: location, stops: [location.coordinates] });
+        const { taxiInfo, destination, location, locationAddress, destinationAddress } = req.body;
+        const destinationCoor = [destination.latitude, destination.longitude]
+        const locationCoor = [location.latitude, location.longitude]
+        const offer = await RideInformation.create({
+            carInformation: taxiInfo._id,
+            creator: userId,
+            destination: { type: "Point", address: destinationAddress, coordinates: destinationCoor },
+            isOffering: true,
+            location: { type: "Point", address: locationAddress, coordinates: locationCoor },
+            stops: [],
+            numRiders: taxiInfo.numberOfSeats,
+        });
         res.status(201).json(offer);
     } catch (error) {
         console.log(error);

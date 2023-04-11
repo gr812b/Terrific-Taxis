@@ -7,6 +7,7 @@ export const GooglePlacesInputDestination = (props) => {
             placeholder='Where are you going?'
             onPress={(data, details = null) => {
                 // 'details' is provided when fetchDetails = true
+                props.setDestinationAddress(details.formatted_address);
                 const location = { latitude: details.geometry.location.lat, longitude: details.geometry.location.lng }
                 props.setDestination(location);
                 props.setMapLocation(location);
@@ -26,6 +27,7 @@ export const GooglePlacesInputOrigin = (props) => {
         <GooglePlacesAutocomplete
             placeholder='Where are you located?'
             onPress={(data, details = null) => {
+                props.setLocationAddress(details.formatted_address);
                 // 'details' is provided when fetchDetails = true
                 const location = { latitude: details.geometry.location.lat, longitude: details.geometry.location.lng }
                 props.setLocation(location);
