@@ -1,5 +1,5 @@
 import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, TouchableOpacity } from "react-native"
-import { useState, useRef } from "react"
+import { useState, useRef, useContext } from "react"
 import styles from '../styles/LoginScreen.style'
 import { StyleSheet } from "react-native"
 import { PROVIDER_GOOGLE, Marker } from "react-native-maps"
@@ -8,10 +8,10 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { ScrollView } from "react-native-gesture-handler"
 import MapViewDirections from 'react-native-maps-directions';
 import { GooglePlacesInputDestination, GooglePlacesInputOrigin } from "./GoogleInput"
-
+import SocketContext from "./SocketContext";
 
 export const SelectDestinationScreen = ({ navigation, route }) => {
-
+    const socket = useContext(SocketContext);
     const [destination, setDestination] = useState("");
     const [location, setLocation] = useState("");
     const mapRef = useRef(null);
@@ -20,6 +20,7 @@ export const SelectDestinationScreen = ({ navigation, route }) => {
     const [destinationAddress, setDestinationAddress] = useState(0);
     const [locationAddress, setLocationAddress] = useState(0);
     const { taxiInfo } = route.params;
+    const [price, setPrice] = useState(0);
     console.log(taxiInfo)
 
     const setMapLocation = async (location) => {
@@ -35,6 +36,7 @@ export const SelectDestinationScreen = ({ navigation, route }) => {
         if (arg) {
             setDistance(arg.distance);
             setTime(arg.duration);
+            setPrice(5 + arg.distance * 0.6)
         }
         mapRef.current.fitToCoordinates([location, destination], { top: 50, right: 50, bottom: 50, left: 50 })
     }
@@ -69,7 +71,7 @@ export const SelectDestinationScreen = ({ navigation, route }) => {
                         </> : null}
                     {location && destination ?
                         <TouchableOpacity style={stylesa.submitButton} onPress={() => {
-                            navigation.navigate("FoodSelect", { userID: 'This is whatever', destination: destination, location: location, numppl: taxiInfo.numberOfSeats, taxiInfo: taxiInfo, locationAddress: locationAddress, destinationAddress: destinationAddress })
+                            navigation.navigate("FoodSelect", { userID: 'This is whatever', destination: destination, location: location, numppl: taxiInfo.numberOfSeats, taxiInfo: taxiInfo, locationAddress: locationAddress, destinationAddress: destinationAddress, offeringSocket: socket.id, price: price })
                         }}>
                             <Text>Make Offer!</Text>
                         </TouchableOpacity> : null

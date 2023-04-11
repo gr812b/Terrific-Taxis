@@ -16,7 +16,7 @@ const rideInformationSchema = mongoose.Schema({
         required: true
     },
     stops: {
-        type: [[Number]],
+        type: [String],
         required: true,
     },
     destination: {
@@ -50,6 +50,19 @@ const rideInformationSchema = mongoose.Schema({
         },
         address: { type: String },
         coordinates: [Number],
+    },
+    offeringSocket: {
+        type: String,
+        required: true,
+    },
+    riderSockets: {
+        type: [String],
+        required: true,
+        default: [],
+    },
+    price: {
+        type: Number,
+        required: true,
     }
 })
 

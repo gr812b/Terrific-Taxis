@@ -1,4 +1,4 @@
-import { StyleSheet, LogBox, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, } from 'react-native';
+import { StyleSheet, LogBox, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, NativeModules } from 'react-native';
 
 import * as React from 'react';
 import { useState } from "react"
@@ -23,10 +23,8 @@ import { RequestRide } from './src/components/RequestRide.js';
 import { RidesScreen } from './src/components/RidesScreen.js';
 import { ArrivedScreen } from './src/components/ArrivedScreen.js';
 import { WaitingScreen } from './src/components/WaitingScreen.js';
+import SocketContext, { socket } from "./src/components/SocketContext.js"
 
-import { io } from 'socket.io-client';
-const socket = io('http://10.0.2.2:5000');
-socket.on('connect', () => { console.log(`connected with id ${socket.id}`) })
 // Ignore this bc it doesn't matter
 LogBox.ignoreAllLogs();
 
@@ -88,7 +86,7 @@ function RequestRideHandler(route) {
 
 export default function App() {
 
-  
+
 
   const Stack = createNativeStackNavigator();
 
@@ -96,24 +94,26 @@ export default function App() {
   const [token, setToken] = useState(null);
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <NavigationContainer>
-          <Stack.Navigator >
-            {token ? (
-              <>
-                <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ token, setToken }} />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setToken }} />
-                <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setToken }} />
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+    <SocketContext.Provider value={socket}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <NavigationContainer>
+            <Stack.Navigator >
+              {token ? (
+                <>
+                  <Stack.Screen name="HomeHandler" component={HomeHandler} options={{ headerShown: false }} initialParams={{ token, setToken }} />
+                </>
+              ) : (
+                <>
+                  <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Terrific Taxi' }} initialParams={{ setToken }} />
+                  <Stack.Screen name="CreateProfile" component={CreateProfileScreen} initialParams={{ setToken }} />
+                </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </SocketContext.Provider>
   );
 }
 

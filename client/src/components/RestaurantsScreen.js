@@ -19,7 +19,7 @@ export const RestaurantsScreen = ({ navigation }) => {
     // Fetch menu from a single restaurant
     const getRestaurantInfo = async () => {
         await fetch(`http://${hostname}:5000/rides/restaurants`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',
@@ -28,7 +28,6 @@ export const RestaurantsScreen = ({ navigation }) => {
             console.log("Restaurant data: " + JSON.stringify(response))
             response.text().then(data => {
                 setRestaurants(JSON.parse(data))
-
                 console.log("Info: " + JSON.stringify(JSON.parse(data)[0].menuItem))
             })
         }).catch(error => {
@@ -44,7 +43,7 @@ export const RestaurantsScreen = ({ navigation }) => {
                 {restaurants.map((restaurant, index) => {
                     return (
                         <Pressable style={[styles.restaurantContainer, index % 2 === 0 ? styles.even : styles.odd]} key={index}
-                            onPress={() => { console.log(restaurant.name); navigation.navigate('Menu', { restaurantInfo: restaurant, baba: "hello"  }) }}>
+                            onPress={() => { console.log(restaurant.name); navigation.navigate('Menu', { restaurantInfo: restaurant, baba: "hello" }) }}>
                             <Text style={styles.restaurantName}>{restaurant.name}</Text>
                             <Text style={styles.restaurantRating}>{restaurant.rating}/5</Text>
                             <Text style={styles.restaurantPrice}>{restaurant.price}</Text>
