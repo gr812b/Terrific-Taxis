@@ -92,25 +92,33 @@ export const RidingScreen = ({ navigation, route }) => {
     );
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.subtitle}>Currently: {rideData?.riders?.length + 1} people</Text>
+        <ScrollView >
+            <View style={styles.container}>
+            <Text style={styles.subtitle}> Currently: {rideData?.riders?.length + 1} people</Text>
             <Text></Text>
-            <FlatList contentContainerStyle={styles.text}
+            <FlatList 
                 data={rideData?.riders}
                 renderItem={renderItem}
             />
             <Text></Text>
-            <Text>Price per person: ${Number(rideData?.price / (rideData?.riders?.length + 1)).toFixed(2)} </Text>
-            <Text>Estimated Time: {15} mins</Text>
-            <Text>Destination: {rideData?.destination?.address}</Text>
-            <Text>Stops:</Text>
-            <Text></Text>
+            <View style={styles.information}>
+                <Text style={styles.text}>Price per person: ${Number(rideData?.price / (rideData?.riders?.length + 1)).toFixed(2)} </Text>
+                <Text style={styles.text}>Estimated Time: {15} mins</Text>
+                <Text style={styles.text}>Destination: {rideData?.destination?.address}</Text>
+                <Text style={styles.text}>Stops:</Text>
+            </View>
+            
             <FlatList
                 data={rideData?.stops}
                 renderItem={renderStopItem}
             />
-            <Button title="Finish Ride"><Text>Finish Ride</Text></Button>
-        </View>
+            <Text style={{height: 30}}/>
+            <Button title="Finish Ride" onPress={() => {
+                navigation.navigate("Arrived", {rideData: rideData})
+            }}><Text>Finish Ride</Text></Button>
+            <Text style={{height: 40}}/>
+            </View>
+        </ScrollView>
     )
 }
 
@@ -120,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 10
+        paddingTop: 10,
     },
     subtitle: {
         fontSize: 20,
@@ -128,7 +136,13 @@ const styles = StyleSheet.create({
         color: '#000'
     },
     text: {
-        fontSize: 15,
+        fontSize: 18,
         color: '#000'
+    },
+    information: {
+        fontSize: 18,
+        color: '#000',
+        textAlign: 'left',
+        padding: 10,
     }
 });

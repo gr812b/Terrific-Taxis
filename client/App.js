@@ -83,6 +83,7 @@ function RequestRideHandler(route) {
       <Stack.Screen name="Request" component={RequestRide} options={{ title: "Please Enter Location and Destination:" }} />
       <Stack.Screen name="Rides" component={RidesScreen} options={{ title: "Please Select a Ride:" }} />
       <Stack.Screen name="Waiting" component={WaitingScreen} options={{ title: "Waiting for Driver..." }} />
+      <Stack.Screen name="Riding" component={RidingScreen} options={{ title: "You're on your way!" }} />
       <Stack.Screen name="Arrived" component={ArrivedScreen} options={{ title: "You have arrived!" }} />
     </Stack.Navigator>
   )
