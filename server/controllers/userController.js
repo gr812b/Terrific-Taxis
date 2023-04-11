@@ -107,9 +107,34 @@ export const addFriend = async (req, res) => {
             console.log(String(friendId));
             //friend thsis person
             profile.friends.push(friendId)
-        } else {
-            //unfriend this person
-            console.log("123")
+        }
+        // else {
+        //     //unfriend this person
+        //     console.log("123")
+        //     profile.friends = profile.friends.filter((id) => String(id) !== String(friendId))
+        // }
+        const updatedProfile = await User.findByIdAndUpdate(userId, profile, { new: true })
+        res.status(200).json(updatedProfile);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+//this route is /users/removefriend. PATCH this route
+//expected req body {friendId}
+export const removeFriend = async (req, res) => {
+    try {
+        const { friendId } = req.body;
+        const userId = req.userId;
+        const profile = await User.findById(userId);
+        const index = profile.friends.findIndex((id) => String(id) === String(friendId));
+        if (index !== -1) {
+            //     console.log(String(friendId));
+            //     //friend thsis person
+            //     profile.friends.push(friendId)
+            // } else {
+            //     //unfriend this person
+            console.log("Removing friend")
             profile.friends = profile.friends.filter((id) => String(id) !== String(friendId))
         }
         const updatedProfile = await User.findByIdAndUpdate(userId, profile, { new: true })

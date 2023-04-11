@@ -1,12 +1,16 @@
-import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, FlatList, NativeModules } from "react-native"
+import { View, Button, Text, TextInput, Image, KeyboardAvoidingView, ScrollView, FlatList, NativeModules, StyleSheet } from "react-native"
 import React, { useState, useEffect } from 'react'
 import SocketContext from "./SocketContext";
+
 const scriptURL = NativeModules.SourceCode.scriptURL;
 const address = scriptURL.split('://')[1].split('/')[0];
 const hostname = address.split(':')[0];
+
 export const RidingScreen = ({ navigation, route }) => {
+
     const socket = React.useContext(SocketContext);
     const [rideData, setRideData] = useState({});
+
     socket.on("acceptOffer", message => {
         //console.log(route.params)
         alert(message)
@@ -30,6 +34,7 @@ export const RidingScreen = ({ navigation, route }) => {
 
 
     })
+
     socket.on("joined", message => {
         //console.log(route.params)
         alert(message)
@@ -74,19 +79,12 @@ export const RidingScreen = ({ navigation, route }) => {
 
     }, [])
 
-    const members = [
-        { id: '1', key: 'Ibrahim' },
-        { id: '2', key: 'Kai' },
-        { id: '3', key: 'Stan' },
-        { id: '4', key: 'Richard' },
-        { id: '5', key: 'Andrew' },
-    ];
-
     const renderItem = ({ item }) => (
         <View>
             <Text>{item.username}</Text>
         </View>
     );
+
     const renderStopItem = ({ item }) => (
         <View>
             <Text>{item}</Text>
@@ -94,10 +92,10 @@ export const RidingScreen = ({ navigation, route }) => {
     );
 
     return (
-        <View>
-            <Text>List of Members: Currently: {rideData?.riders?.length + 1} people</Text>
+        <View style={styles.container}>
+            <Text style={styles.subtitle}>Currently: {rideData?.riders?.length + 1} people</Text>
             <Text></Text>
-            <FlatList
+            <FlatList contentContainerStyle={styles.text}
                 data={rideData?.riders}
                 renderItem={renderItem}
             />
@@ -115,3 +113,22 @@ export const RidingScreen = ({ navigation, route }) => {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
+    },
+    subtitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#000'
+    },
+    text: {
+        fontSize: 15,
+        color: '#000'
+    }
+});
