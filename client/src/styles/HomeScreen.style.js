@@ -20,4 +20,17 @@ export default StyleSheet.create({
         color: '#212321',
         fontWeight: 'bold',
     },
+    input: {
+        width: 300,
+        height: 40,
+        margin: 12,
+        borderWidth: 1,
+        padding: 10,
+    },
+    titleText: {
+        fontSize: 40,
+        fontWeight: "bold",
+        textAlign: 'center',
+        color: '#212321',
+    },
 });

@@ -24,6 +24,7 @@ import { RidesScreen } from './src/components/RidesScreen.js';
 import { ArrivedScreen } from './src/components/ArrivedScreen.js';
 import { WaitingScreen } from './src/components/WaitingScreen.js';
 import { EditProfileScreen } from './src/components/EditProfileScreen.js';
+import { AddFriendScreen } from './src/components/AddFriendScreen.js';
 
 import { io } from 'socket.io-client';
 const socket = io('http://10.0.2.2:5000');
@@ -52,6 +53,7 @@ function HomeHandler({ route }) {
       <Stack.Screen name="Offer Ride" component={OfferRideHandler} />
       <Stack.Screen name="Request Ride" component={RequestRideHandler} />
       <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{drawerItemStyle: { height: 0 }}}/>
+      <Drawer.Screen name="Add Friend" component={AddFriendScreen} />
     </Drawer.Navigator>
   );
 }
