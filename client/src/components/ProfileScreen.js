@@ -14,7 +14,6 @@ export const ProfileScreen = ({ navigation, route }) => {
     // The profile should be able to be viewed by other users
     // The profile should be able to be viewed by the user
 
-
     const { token, id } = route.params;
 
     console.log(token)
@@ -33,7 +32,6 @@ export const ProfileScreen = ({ navigation, route }) => {
             },
             body: JSON.stringify({ friendId: "6433456275de7af7bc55127f" })
         }).then(response => {
-            console.log(response)
             response.text().then(data => {
                 console.log(JSON.parse(data))
                 console.log(data)

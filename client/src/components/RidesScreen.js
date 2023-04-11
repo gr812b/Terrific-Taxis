@@ -33,6 +33,8 @@ export const RidesScreen = ({ navigation, route }) => {
             response.text().then(data => {
                 //setRestaurants(JSON.parse(data))
                 console.log("Info: " + JSON.stringify(JSON.parse(data)))
+                //Fetch profile for ride offerer's info, rating
+                //Use ride information to display distance from pickup location
             })
         }).catch(error => {
             console.log("error: " + error)

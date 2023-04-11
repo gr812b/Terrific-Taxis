@@ -11,15 +11,12 @@
 ## TODO - Kai
 
 ### Front End
-- Maps Integration
-- Integrate ride UIs with backend
-- Camera functioning
+- Maps Integration Offer Ride
+- Build offer ride request (pass information through)
 - Profile Page integration with backend
-- Restaurant Page integration with backend
-- Prettify UI
+- Prettify UI (riding screen, waiting screen)
+- Waiting Screen
 
 ### Back End
-- Dispatcher
 - Profile request
-- All restaurants request
 
