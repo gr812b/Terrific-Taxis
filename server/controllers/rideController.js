@@ -84,11 +84,13 @@ export const getRestaurant = async (req, res) => {
 //route is /rides/rating/id of the other person. PATCH this route
 //expected req body {rating:}
 export const makeRating = async (req, res) => {
+    console.log("rating")
     try {
-        const rating = req.rating;
+        const rating = req.body.rating;
         const otherUserId = req.params.id;
         const otherUser = await User.findById(otherUserId);
-        otherUser.rating.push(Number(rating));
+        console.log(rating)
+        otherUser.rating.push(rating);
         const updatedUser = await User.findByIdAndUpdate(otherUserId, { ...otherUser, otherUserId }, { new: true });
         res.status(201).send("Rating recorded sucessfuly");
     } catch (error) {
