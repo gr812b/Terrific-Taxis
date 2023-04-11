@@ -19,12 +19,12 @@ export const getTaxiInfo = async (req, res) => {
     }
 }
 //route is /rides/createoffer. POST this route.
-//expected req body {taxiId, destination}
+//expected req body {taxiId, destination, location}
 export const createOffer = async (req, res) => {
     try {
         const userId = req.userId;
         const { taxiId, destination, location } = req.body;
-        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true, location: location });
+        const offer = await RideInformation.create({ carInformation: taxiId, creator: userId, destination: destination, isOffering: true, location: location, stops: [location.coordinates] });
         res.status(201).json(offer);
     } catch (error) {
         console.log(error);

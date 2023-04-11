@@ -3,7 +3,7 @@ import Request from '../models/Request.js';
 import RideInformation from '../models/RideInformation.js';
 import CarInformation from '../models/carInformation.js';
 
-// this route is /dispatcher/request. GET this route
+// this route is /dispatcher/request. POST this route
 // expected req body {destination, location, distance}
 function intersect(o1, o2) {
     return Object.keys(o1).filter(k => Object.hasOwn(o2, k))
@@ -87,7 +87,7 @@ export const selectRide = async (req, res) => {
 }
 
 // this route is /dispatcher/requests. GET this route
-export const getRequests = async (req, res) => {
+export const getMatches = async (req, res) => {
     try {
         const requests = await Request.find({ offeringUser: req.userId }).
             populate('requestingUser');
