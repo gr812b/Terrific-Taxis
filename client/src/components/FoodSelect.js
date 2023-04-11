@@ -20,7 +20,8 @@ const getData = async () => {
 }
 
 export const FoodSelect = ({ navigation, route }) => {
-    const { userID, destination, location, numppl, taxiInfo, locationAddress, destinationAddress } = route.params
+    const { userID, destination, location, numppl, taxiInfo, locationAddress, destinationAddress, offeringSocket, price } = route.params
+    let rideId;
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Pressable onPress={() => navigation.navigate('Restaurants', route.params)} style={styles.button}>
@@ -39,17 +40,19 @@ export const FoodSelect = ({ navigation, route }) => {
                         'authorization': 'Bearer ' + token
                     },
                     body: JSON.stringify({
-                        userID: userID, destination: destination, location: location, numppl: taxiInfo.numberOfSeats, taxiInfo: taxiInfo, locationAddress: locationAddress, destinationAddress: destinationAddress
+                        userID: userID, destination: destination, location: location, numppl: taxiInfo.numberOfSeats, taxiInfo: taxiInfo, locationAddress: locationAddress, destinationAddress: destinationAddress, offeringSocket: offeringSocket, price: price
                     }),
                 }).then(response => {
                     response.json().then((data) => {
-                        console.log(data);
+                        console.log(data)
+                        console.log(data._id)
+                        navigation.navigate('Riding', { rideId: data._id });
                     })
                 }).catch(error => {
                     alert('Invalid Taxi QR Code!')
                     console.log("error: " + error)
                 });
-                navigation.navigate('Riding', route.params);
+
 
             }} style={styles.button}>
                 <Text style={styles.buttonText}>No</Text>

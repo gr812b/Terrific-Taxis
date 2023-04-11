@@ -24,7 +24,7 @@ export const createOffer = async (req, res) => {
     try {
         console.log(req.body)
         const userId = req.userId;
-        const { taxiInfo, destination, location, locationAddress, destinationAddress } = req.body;
+        const { taxiInfo, destination, location, locationAddress, destinationAddress, offeringSocket, price } = req.body;
         const destinationCoor = [destination.latitude, destination.longitude]
         const locationCoor = [location.latitude, location.longitude]
         const offer = await RideInformation.create({
@@ -35,8 +35,21 @@ export const createOffer = async (req, res) => {
             location: { type: "Point", address: locationAddress, coordinates: locationCoor },
             stops: [],
             numRiders: taxiInfo.numberOfSeats,
+            offeringSocket: offeringSocket,
+            price: price,
         });
         res.status(201).json(offer);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+export const getOffer = async (req, res) => {
+    const rideId = req.params.id;
+    try {
+        const offer = await RideInformation.findById(rideId).populate('riders');
+        res.status(200).json(offer);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: error.message });

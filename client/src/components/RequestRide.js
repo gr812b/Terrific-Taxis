@@ -8,6 +8,7 @@ import { PROVIDER_GOOGLE, Marker } from "react-native-maps"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import { ScrollView } from "react-native-gesture-handler"
 import MapViewDirections from 'react-native-maps-directions';
+import { GooglePlacesInputDestination, GooglePlacesInputOrigin } from "./GoogleInput"
 
 export const RequestRide = ({ navigation }) => {
 
@@ -69,7 +70,7 @@ export const RequestRide = ({ navigation }) => {
                         </> : null}
                     {location && destination ?
                         <TouchableOpacity style={stylesa.submitButton} onPress={() => {
-                            navigation.navigate("Rides", { userID: 'Micky', destination: destination, location: location, numppl: numppl, flexibility: flexibility })
+                            navigation.navigate("Rides", { userID: 'Micky', destination: destination, location: location, numppl: numppl, flexibility: flexibility, destinationAddress: destinationAddress, locationAddress: locationAddress })
                         }}>
                             <Text>Make Request!</Text>
                         </TouchableOpacity> : null
@@ -120,44 +121,3 @@ const stylesa = StyleSheet.create({
         backgroundColor: "yellow"
     }
 });
-
-const GooglePlacesInputDestination = (props) => {
-    return (
-        <GooglePlacesAutocomplete
-            placeholder='Where are you going?'
-            onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                const location = { latitude: details.geometry.location.lat, longitude: details.geometry.location.lng }
-                props.setDestination(location);
-                props.setMapLocation(location);
-            }}
-            query={{
-                key: "AIzaSyBomDl6jr68SAPfj---QNBjc5-NX0xI7xQ",
-                language: 'en',
-                components: 'country:ca',
-            }}
-            fetchDetails={true}
-        />
-    );
-};
-
-const GooglePlacesInputOrigin = (props) => {
-    return (
-        <GooglePlacesAutocomplete
-            placeholder='Where are you located?'
-            onPress={(data, details = null) => {
-                // 'details' is provided when fetchDetails = true
-                const location = { latitude: details.geometry.location.lat, longitude: details.geometry.location.lng }
-                props.setLocation(location);
-                props.setMapLocation(location);
-            }}
-            query={{
-                key: "AIzaSyBomDl6jr68SAPfj---QNBjc5-NX0xI7xQ",
-                language: 'en',
-                components: 'country:ca',
-
-            }}
-            fetchDetails={true}
-        />
-    );
-};

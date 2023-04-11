@@ -29,7 +29,7 @@ export const requestRides = async (req, res) => {
                     $maxDistance: distance
                 }
             }
-        }).populate('carInformation', 'numberOfSeats')
+        }).populate('carInformation', 'numberOfSeats').populate('creator')
         /*
         const ridesNearDestination = await RideInformation.find({
             isOffering: true, destination: {
@@ -64,11 +64,25 @@ export const requestRides = async (req, res) => {
 // if succesful returns {requestId}
 export const selectRide = async (req, res) => {
     try {
-        const reqDestination = req.body.destination;
+        //const reqDestination = req.body.destination;
         const reqRide = req.body.ride;
-
-        const ride = await RideInformation.findById(reqRide._id);
-        if (ride.isOffering && reqDestination == ride.destination) {
+        const location = req.body.location;
+        const destination = req.body.destination
+        console.log(reqRide)
+        var io = req.app.get('socket');
+        const ride = await RideInformation.findById(reqRide);
+        console.log(ride)
+        io.to(ride.offeringSocket).emit("acceptOffer", `User: ${req.userId} has accepted your offer. They are located at ${location}. Estimated impact on time 15 mins`)
+        ride.riderSockets.forEach((id) => {
+            io.to(id).emit("joined", "A user has joined your carpool!");
+        })
+        ride.riders.push(req.userId);
+        ride.riderSockets.push(req.body.requestSocket)
+        ride.stops.push(location);
+        ride.stops.push(destination);
+        const updatedRide = await RideInformation.findByIdAndUpdate(reqRide, { ...ride, reqRide }, { new: true });
+        if (ride.isOffering /*&& reqDestination == ride.destination*/) {
+            /*
             const rideRequest = await Request.create({
                 offeringUser: reqRide.creator,
                 requestingUser: req.userId,
@@ -76,7 +90,8 @@ export const selectRide = async (req, res) => {
                 destination: reqDestination,
                 accepted: false
             });
-            res.status(201).json({ requestId: rideRequest._id });
+            */
+            res.status(201).json(updatedRide/*{ requestId: rideRequest._id }*/);
         } else {
             res.status(400)
         }
