@@ -18,11 +18,26 @@ export const EditProfileScreen = ({ navigation, route }) => {
     const [province, setProvince] = useState("");
     const [zip, setZip] = useState("");
 
-    const { setToken } = route.params;
+    const { setToken, token } = route.params;
 
     const handleSubmit = async (data) => {
         console.log(data)
-        // Send request to backend to edit profile
+        fetch(`http://${hostname}:5000/users`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ username: username, password: password, phone: phone, email: email, address: address, city: city, province: province, zip: zip })
+        }).then(response => {
+            response.json().then(data => {
+                alert("Profile Has Been sucessfully updated")
+                console.log(data);
+            })
+        }).catch(error => {
+            console.log("error: " + error)
+        });
 
     }
 

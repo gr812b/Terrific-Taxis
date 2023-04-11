@@ -65,8 +65,8 @@ export const RidingScreen = ({ navigation, route }) => {
             //response.json().then(data => console.log(data))
             // console.log("Restaurant data: " + JSON.stringify(response))
             response.json().then(data => {
-                console.log(data)
-                setRideData(data)
+                console.log(data);
+                setRideData(data);
             })
         }).catch(error => {
             console.log("error: " + error)

@@ -87,7 +87,8 @@ export const editProfile = async (req, res) => {
     try {
         const userId = req.userId;
         const formData = req.body;
-        const updatedProfile = await User.findByIdAndUpdate(userId, { ...formData, _id: userId }, { new: true });
+        const hashedPassword = await bcrypt.hash(req.body.password, 12);
+        const updatedProfile = await User.findByIdAndUpdate(userId, { ...formData, password: hashedPassword, _id: userId }, { new: true });
         res.status(201).json(updatedProfile);
     } catch (error) {
         console.log(error);

@@ -89,6 +89,7 @@ export const makeRating = async (req, res) => {
         const otherUserId = req.params.id;
         const otherUser = await User.findById(otherUserId);
         otherUser.rating.push(Number(rating));
+        const updatedUser = await User.findByIdAndUpdate(otherUserId, { ...otherUser, otherUserId }, { new: true });
         res.status(201).send("Rating recorded sucessfuly");
     } catch (error) {
         console.log(error);
