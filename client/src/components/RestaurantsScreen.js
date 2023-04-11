@@ -7,7 +7,7 @@ const scriptURL = NativeModules.SourceCode.scriptURL;
 const address = scriptURL.split('://')[1].split('/')[0];
 const hostname = address.split(':')[0];
 
-export const RestaurantsScreen = ({ navigation }) => {
+export const RestaurantsScreen = ({ navigation, route }) => {
 
     // On startup, fetch all restaurants from the server
     useEffect(() => {
@@ -43,7 +43,7 @@ export const RestaurantsScreen = ({ navigation }) => {
                 {restaurants.map((restaurant, index) => {
                     return (
                         <Pressable style={[styles.restaurantContainer, index % 2 === 0 ? styles.even : styles.odd]} key={index}
-                            onPress={() => { console.log(restaurant.name); navigation.navigate('Menu', { restaurantInfo: restaurant, baba: "hello" }) }}>
+                            onPress={() => { console.log(restaurant.name); navigation.navigate('Menu', { restaurantInfo: restaurant, baba: "hello", ...route.params }) }}>
                             <Text style={styles.restaurantName}>{restaurant.name}</Text>
                             <Text style={styles.restaurantRating}>{restaurant.rating}/5</Text>
                             <Text style={styles.restaurantPrice}>{restaurant.price}</Text>

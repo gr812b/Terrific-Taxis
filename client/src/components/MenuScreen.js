@@ -13,7 +13,7 @@ export const MenuScreen = ({ navigation, route }) => {
     useEffect(() => {
         setMenuItems(restaurantInfo.menuItem);
     }, [])
-    
+
     const [order, setOrder] = useState({});
 
     return (
@@ -42,7 +42,7 @@ export const MenuScreen = ({ navigation, route }) => {
                 </ScrollView>
             </View>
             <Pressable style={styles.checkoutButton} onPress={() => {
-                console.log("Order"); navigation.navigate('Receipt', { restaurantId: 'MickeyDDD1-1', order: order })
+                console.log("Order"); navigation.navigate('Receipt', { ...route.params, restaurantId: 'MickeyDDD1-1', order: order })
             }}>
                 <Text style={styles.checkoutButtonText}>Checkout</Text>
             </Pressable>
