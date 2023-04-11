@@ -5,8 +5,8 @@ import React, { useState, useEffect } from "react"
 
 
 const scriptURL = NativeModules.SourceCode.scriptURL;
-const address = scriptURL.split('://')[1].split('/')[0];
-const hostname = address.split(':')[0];
+const address1 = scriptURL.split('://')[1].split('/')[0];
+const hostname = address1.split(':')[0];
 
 export const ProfileScreen = ({ navigation, route }) => {
     // A profile should contain the following: Name, Email, Phone, Address, City, Province, Zip, Rating, Number of Rides, Profile Picture
@@ -48,18 +48,6 @@ export const ProfileScreen = ({ navigation, route }) => {
         });
         // Return profile data
         console.log(data1)
-        return {
-            name: data1.username,
-            email: data1.email,
-            phone: "123-456-7890",
-            address: "123 Fake Street",
-            city: "Toronto",
-            province: "Ontario",
-            zip: "M4B 1B3",
-            rating: 4.5,
-            numRides: 10,
-            profilePic: "https://t4.ftcdn.net/jpg/04/44/81/51/360_F_444815152_MuNBOsOCP45r83AZLLVnjuPHx9c6XRrw.jpg"
-        }
     }
 
     //How would I make sure the getProfileData function is called right away and not after the page is rendered?
