@@ -1,19 +1,26 @@
-import User from '..models/user.js'
-import Request from '../models/Request';
-import RideInformation from '../models/RideInformation';
-import CarInformation from '../models/carInformation';
+import User from '../models/user.js'
+import Request from '../models/Request.js';
+import RideInformation from '../models/RideInformation.js';
+import CarInformation from '../models/carInformation.js';
 
 // this route is /dispatcher/request. GET this route
 // expected req body {destination, location, distance}
+function intersect(o1, o2) {
+    return Object.keys(o1).filter(k => Object.hasOwn(o2, k))
+}
 export const requestRides = async (req, res) => {
     try {
         const requestingUser = User.findById(req.userId);
-        const reqDestination = req.body.destination;
-        const location = req.body.location;
+        const reqLat = req.body.destination.latitude;
+        const reqLng = req.body.destination.longitude;
+        const lat = req.body.location.latitude;
+        const lng = req.body.location.longitude;
+        const location = [lat, lng];
+        const destination = [reqLat, reqLng];
         const distance = req.body.distance
 
-        const rides = await RideInformation.find({
-            destination: reqDestination, isOffering: true, location: {
+        const ridesNearLocation = await RideInformation.find({
+            isOffering: true, location: {
                 $near: {
                     $geometry: {
                         type: "Point",
@@ -22,12 +29,27 @@ export const requestRides = async (req, res) => {
                     $maxDistance: distance
                 }
             }
-        }).
-            populate('carInformation', 'numberOfSeats').
-            $where('this.numRiders < this.carInformation.numberOfSeats');
+        }).populate('carInformation', 'numberOfSeats')
+        /*
+        const ridesNearDestination = await RideInformation.find({
+            isOffering: true, destination: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: destination
+                    },
+                    $maxDistance: 100
+                }
+            }
+        }).populate('carInformation', 'numberOfSeats')
+        */
+        //intersect(ridesNearDestination, ridesNearLocation);
 
-        if (rides) {
-            res.status(200).json(rides);
+
+        // $where('this.numRiders < this.carInformation.numberOfSeats');
+        console.log(ridesNearLocation);
+        if (ridesNearLocation) {
+            res.status(200).json(ridesNearLocation);
         } else {
             res.status(204).end();
         }
@@ -88,7 +110,7 @@ export const acceptRequest = async (req, res) => {
         res.status(200);
     } catch (error) {
         console.log(error)
-        res.satus(500).json({ message: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 

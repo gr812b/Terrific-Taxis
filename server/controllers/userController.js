@@ -69,6 +69,17 @@ export const getProfile = async (req, res) => {
         res.status(500).json({ message: error.message })
     }
 }
+//this route is /users/getownprofile. GET this route. This route returns the given userId's profile
+export const getOwnProfile = async (req, res) => {
+    const userId = req.userId;
+    try {
+        const profile = await User.findById(userId);
+        res.status(200).json(profile);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: error.message })
+    }
+}
 
 //this route is /users. PATCH this route
 //expected req body { username, password, phone, email, address, city, state, zip }

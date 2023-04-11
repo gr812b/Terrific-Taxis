@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import userRoutes from './routes/user.js';
 import rideRoutes from './routes/ride.js';
+import dispatcherRoutes from './routes/dispatcher.js';
 import bodyParser from 'body-parser';
 import { Server } from 'socket.io'
 import http from 'http';
@@ -26,6 +27,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 app.use('/users', userRoutes);
 app.use('/rides', rideRoutes);
+app.use('/dispatcher', dispatcherRoutes);
 
 
 app.get('/', (req, res) => {

@@ -16,7 +16,7 @@ const rideInformationSchema = mongoose.Schema({
         required: true
     },
     stops: {
-        type: [String],
+        type: [[Number]],
         required: true,
     },
     destination: {
@@ -31,10 +31,12 @@ const rideInformationSchema = mongoose.Schema({
     selectedRestaurant: {
         type: mongoose.SchemaTypes.ObjectId,
         required: false,
+        ref: "Restaurant"
     },
     carInformation: {
         type: mongoose.SchemaTypes.ObjectId,
         required: true,
+        ref: "CarInformation"
     },
     isOffering: {
         type: Boolean,
@@ -52,6 +54,7 @@ const rideInformationSchema = mongoose.Schema({
 })
 
 rideInformationSchema.index({ "location": "2dsphere" })
+rideInformationSchema.index({ "destination": "2dsphere" })
 
 const RideInformation = mongoose.model('RideInformation', rideInformationSchema);
 
