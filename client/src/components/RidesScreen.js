@@ -114,7 +114,7 @@ export const RidesScreen = ({ navigation, route }) => {
                     console.log(rides)
                     return (
                         <Pressable style={[styles.restaurantContainer, index % 2 === 0 ? styles.even : styles.odd]} key={index}
-                            onPress={() => { handleSelect(rides._id); console.log(rides.name); navigation.navigate('Riding', { rideId: rides._id }) }}>
+                            onPress={async () => { await handleSelect(rides._id); console.log(rides.name); navigation.navigate('Riding', { rideId: rides._id }) }}>
                             <Text style={styles.restaurantName}>{rides?.creator?.username}</Text>
                             {/* <Text style={styles.restaurantRating}>{rides[0]?.creator?.rating}/5</Text> */}
                             <Text style={styles.restaurantPrice}>{rides?.location?.address}</Text>
