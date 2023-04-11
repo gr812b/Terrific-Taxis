@@ -23,6 +23,7 @@ import { RequestRide } from './src/components/RequestRide.js';
 import { RidesScreen } from './src/components/RidesScreen.js';
 import { ArrivedScreen } from './src/components/ArrivedScreen.js';
 import { WaitingScreen } from './src/components/WaitingScreen.js';
+import { EditProfileScreen } from './src/components/EditProfileScreen.js';
 
 import { io } from 'socket.io-client';
 const socket = io('http://10.0.2.2:5000');
@@ -47,12 +48,15 @@ function HomeHandler({ route }) {
       )
     }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane', token: token }} />
+      <Drawer.Screen name="Profile" component={ProfileScreen} initialParams={{ name: 'Jane', token: token, setToken: setToken }} />
       <Stack.Screen name="Offer Ride" component={OfferRideHandler} />
       <Stack.Screen name="Request Ride" component={RequestRideHandler} />
+      <Drawer.Screen name="EditProfile" component={EditProfileScreen} options={{drawerItemStyle: { height: 0 }}}/>
     </Drawer.Navigator>
   );
 }
+
+
 
 function OfferRideHandler(route) {
 

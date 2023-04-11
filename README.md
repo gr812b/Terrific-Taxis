@@ -11,7 +11,6 @@
 ## TODO - Kai
 
 ### Front End
-- Maps Integration Offer Ride
 - Build offer ride request (pass information through)
 - Profile Page integration with backend
 - Prettify UI (riding screen, waiting screen)
