@@ -19,7 +19,7 @@ export const RestaurantsScreen = ({ navigation }) => {
     // Fetch menu from a single restaurant
     const getRestaurantInfo = async () => {
         await fetch(`http://${hostname}:5000/rides/restaurants`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json',

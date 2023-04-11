@@ -24,7 +24,7 @@ export const MenuScreen = ({ navigation, route }) => {
                         return (
                             <View style={[styles.menuItemContainer, index % 2 === 0 ? styles.even : styles.odd]} key={index} >
                                 <Text style={styles.menuItemName}>{menuItem.name}</Text>
-                                <Text style={styles.menuItemPrice}>{menuItem.price}</Text>
+                                <Text style={styles.menuItemPrice}>${menuItem.price}</Text>
                                 <CounterInput
                                     onChange={(counter) => {
                                         console.log(`onChange Counter ${menuItem.name}:`, counter);
