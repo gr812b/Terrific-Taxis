@@ -33,7 +33,7 @@ export const signUp = async (req, res) => {
 //this route is /users/signin. POST this route
 //expected req body {username, password}
 export const signIn = async (req, res) => {
-    await MenuItem.create({ name: "Tomato", price: "5", image: "tomato image" });
+    //await MenuItem.create({ name: "Tomato", price: "5", image: "tomato image" });
     const { username, password } = req.body;
     try {
         const existingUser = await User.findOne({ username });
