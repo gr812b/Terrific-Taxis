@@ -56,8 +56,6 @@ function HomeHandler({ route }) {
   );
 }
 
-
-
 function OfferRideHandler(route) {
 
   const Stack = createNativeStackNavigator();
